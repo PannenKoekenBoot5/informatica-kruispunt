@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+button {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-1 {
+    flex: 1 1 0%;
+}
+
+.rounded-md {
+	border-radius: .375rem;
+}
+
+.bg-black {
+	background-color: rgba(0,0,0, 1);
+}
+
+.text-white {
+	color: #ffffff;
+}
+
+.font-semibold {
+	font-weight: 600;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.py-3 {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+}
+
+.px-6 {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+}
+
+.w-64 {
+	width: 16rem;
+}
+
+.center-auto {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.space-x-4>:not([hidden])~:not([hidden]) {
+	--tw-space-x-reverse: 0;
+	margin-right: calc(1rem*var(--tw-space-x-reverse));
+	margin-left: calc(1rem*(1 - var(--tw-space-x-reverse)));
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+	font-family: "Roboto", sans-serif;
+}
+
+svg {
+    height: calc(100vh - 6rem);
+    width: 100vw;
+}
+
+.button {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
