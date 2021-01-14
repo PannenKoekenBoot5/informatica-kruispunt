@@ -5,7 +5,7 @@ import random
 import string
 
 app = Flask(__name__, static_url_path='', static_folder='static/')
-app.config['SECRET_KEY'] = 'suckmydick'
+app.config['SECRET_KEY'] = 'FQU2hqfs9B5KXcbF'
 socketio = SocketIO(app)
 
 if __name__ == '__main__':
