@@ -12,7 +12,7 @@ if __name__ == '__main__':
     socketio.run(app)
 
 @app.route('/')
-def hello_world():
+def serve_index():
     return app.send_static_file('index.html')
 
 @socketio.on('data')
