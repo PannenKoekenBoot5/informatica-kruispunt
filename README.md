@@ -1,6 +1,6 @@
 # Installation
 ### Creating an environment
-`cd informatica-kruispunt`
+`cd informatica-kruispunt`\
 `py -3 -m venv venv`
 
 ### Activating the environment
