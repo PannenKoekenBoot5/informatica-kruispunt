@@ -9,7 +9,7 @@
 ## Installing Flask
 `py -m pip install Flask`
 
-## Setting environment variables\n (required everytime your command line restarts)
+### Setting environment variables (required everytime your command line restarts)
 `set FLASK_APP=main.py`
 `flask run`
 
