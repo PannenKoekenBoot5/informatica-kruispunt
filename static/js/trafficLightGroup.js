@@ -1,10 +1,10 @@
 class TrafficLightGroup {
     constructor (direction) {
-        this.direction = direction;
-        this.trafficLights = [];
+    	this.direction = direction;
+    	this.trafficLights = [];
     }
 
-    activate (greenDuration, orangeDuration) {
+    activate(greenDuration, orangeDuration) {
 		this.trafficLights.forEach(v => v.activate(greenDuration, orangeDuration));
     }
 }

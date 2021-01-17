@@ -9,7 +9,7 @@ class TrafficLightManager {
 
     activate (direction, greenDuration = DEFAULT_GREEN_TIME, orangeDuration = DEFAULT_ORANGE_TIME) {
         this.groups.forEach(v => {
-            if (v.direction == direction) v.activate(greenDuration, orangeDuration)
+            if (v.direction == direction.toLowerCase()) v.activate(greenDuration, orangeDuration)
         });
     }
 }

@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!--Define document encoding-->
         <meta charset="UTF-8">
         <meta name="description" content="A traffic simulation controlled by a server side python application.">
         <meta name="keywords" content="Traffic, Traffic Light, Simulation, Traffic Simulation">
         <meta name="author" content="Sem Bakker, Jason de Wolff, Menno Westenbrink en Connor Bosman">
-        <!--Make the website scalable, usefull for mobile devices-->
+        <!-- Make the website scalable, usefull for mobile devices -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Traffic Simulation</title>
 
-        <!--Include all JavaScript scripts-->        
+        <!-- Include all JavaScript scripts -->        
 		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.min.js" integrity="sha512-L9L4VhE0D58fCxtJiYDHbIzSVfNGY24rhQPWTZPschTVKLpucPsLeT0FSjfnylLYARalTQqgwXsjjhi+wUTwIw==" crossorigin="anonymous"></script>
         <script defer src="js/trafficLight.js" type="text/javascript"></script>
         <script defer src="js/trafficLightManager.js" type="text/javascript"></script>
         <script defer src="js/trafficLightGroup.js" type="text/javascript"></script>
         <script defer src="js/main.js" type="text/javascript"></script>
 
-        <!--Inlcude all style scripts-->
+        <!-- Include all stylesheets -->
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -33,22 +32,24 @@
                     <rect x="549" y="312" width="171" height="29" fill="white"/>
                     <rect x="549" y="514" width="171" height="29" transform="rotate(90 549 514)" fill="white"/>
                     <rect x="920" y="341" width="171" height="29" transform="rotate(90 920 341)" fill="white"/>
-                    <rect x="499" y="508" width="50" height="9" fill="white"/>
-                    <rect x="424" y="508" width="50" height="9" fill="white"/>
-                    <rect x="349" y="508" width="50" height="9" fill="white"/>
-                    <rect x="274" y="508" width="50" height="9" fill="white"/>
-                    <rect x="199" y="508" width="50" height="9" fill="white"/>
-                    <rect x="124" y="508" width="50" height="9" fill="white"/>
-                    <rect x="49" y="508" width="50" height="9" fill="white"/>
-                    <rect x="0" y="508" width="26" height="9" fill="white"/>
-                    <rect x="1416" y="508" width="24" height="9" fill="white"/>
-                    <rect x="1341" y="508" width="50" height="9" fill="white"/>
-                    <rect x="1266" y="508" width="50" height="9" fill="white"/>
-                    <rect x="1191" y="508" width="50" height="9" fill="white"/>
-                    <rect x="1116" y="508" width="50" height="9" fill="white"/>
-                    <rect x="1041" y="508" width="50" height="9" fill="white"/>
-                    <rect x="966" y="508" width="50" height="9" fill="white"/>
-                    <rect x="891" y="508" width="50" height="9" fill="white"/>
+                    <g id="traffic-stripes">
+                        <rect x="499" y="508" width="50" height="9" fill="white"/>
+                        <rect x="424" y="508" width="50" height="9" fill="white"/>
+                        <rect x="349" y="508" width="50" height="9" fill="white"/>
+                        <rect x="274" y="508" width="50" height="9" fill="white"/>
+                        <rect x="199" y="508" width="50" height="9" fill="white"/>
+                        <rect x="124" y="508" width="50" height="9" fill="white"/>
+                        <rect x="49" y="508" width="50" height="9" fill="white"/>
+                        <rect x="0" y="508" width="26" height="9" fill="white"/>
+                        <rect x="1416" y="508" width="24" height="9" fill="white"/>
+                        <rect x="1341" y="508" width="50" height="9" fill="white"/>
+                        <rect x="1266" y="508" width="50" height="9" fill="white"/>
+                        <rect x="1191" y="508" width="50" height="9" fill="white"/>
+                        <rect x="1116" y="508" width="50" height="9" fill="white"/>
+                        <rect x="1041" y="508" width="50" height="9" fill="white"/>
+                        <rect x="966" y="508" width="50" height="9" fill="white"/>
+                        <rect x="891" y="508" width="50" height="9" fill="white"/>
+                    </g>
                     <rect x="724" y="685" width="50" height="9" transform="rotate(90 724 685)" fill="white"/>
                     <rect x="724" y="910" width="50" height="9" transform="rotate(90 724 910)" fill="white"/>
                     <rect x="724" y="985" width="50" height="9" transform="rotate(90 724 985)" fill="white"/>
@@ -89,8 +90,8 @@
         </div>
         <br>
 	<div class="button flex space-x-4 w-64">
-        	<div onclick="Restart()" class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6">Restart</div>
-        	<div onclick="Next()" class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6">Next</div>
+        <div onclick="Restart()" class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6 cursor-pointer">Restart</div>
+        <div onclick="Next()" class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6 cursor-pointer">Next</div>
 	</div>
     </body>
 </html>

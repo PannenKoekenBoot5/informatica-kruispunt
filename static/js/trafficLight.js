@@ -4,23 +4,24 @@ class TrafficLight {
         this.element = element;
         this.id = element.id;
 
-        // Store signal elements
+		// Store signal elements
+		console.log(element.childNodes);
         this.red = element.childNodes[7];
         this.orange = element.childNodes[5];
         this.green = element.childNodes[3];
 
         this.activated = false;
 
-        this.Reset();
+        this.reset();
     }
 
-    Reset() {
+    reset() {
         this.green.style.fill = COLOR_GREEN_PASSIVE;
         this.orange.style.fill = COLOR_ORANGE_PASSIVE;
         this.red.style.fill = COLOR_RED_ACTIVE;
     }
 
-    Activate(greenDuration, orangeDuration) {
+    activate(greenDuration, orangeDuration) {
         // Make sure the light can't be activated before it is done animating
         if (this.activated)
             return;
