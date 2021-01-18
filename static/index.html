@@ -1,97 +1,322 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="A traffic simulation controlled by a server side python application.">
-        <meta name="keywords" content="Traffic, Traffic Light, Simulation, Traffic Simulation">
-        <meta name="author" content="Sem Bakker, Jason de Wolff, Menno Westenbrink en Connor Bosman">
-        <!-- Make the website scalable, usefull for mobile devices -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="A traffic simulation controlled by a server side python application."
+    />
+    <meta
+      name="keywords"
+      content="Traffic, Traffic Light, Simulation, Traffic Simulation"
+    />
+    <meta
+      name="author"
+      content="Sem Bakker, Jason de Wolff, Menno Westenbrink en Connor Bosman"
+    />
+    <!-- Set the website's viewport, which allows for easier scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <title>Traffic Simulation</title>
+    <title>Traffic Simulation</title>
 
-        <!-- Include all JavaScript scripts -->        
-		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.min.js" integrity="sha512-L9L4VhE0D58fCxtJiYDHbIzSVfNGY24rhQPWTZPschTVKLpucPsLeT0FSjfnylLYARalTQqgwXsjjhi+wUTwIw==" crossorigin="anonymous"></script>
-        <script defer src="js/trafficLight.js" type="text/javascript"></script>
-        <script defer src="js/trafficLightManager.js" type="text/javascript"></script>
-        <script defer src="js/trafficLightGroup.js" type="text/javascript"></script>
-        <script defer src="js/main.js" type="text/javascript"></script>
+    <!-- Include all scripts -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.min.js"
+      integrity="sha512-L9L4VhE0D58fCxtJiYDHbIzSVfNGY24rhQPWTZPschTVKLpucPsLeT0FSjfnylLYARalTQqgwXsjjhi+wUTwIw=="
+      crossorigin="anonymous"
+    ></script>
+    <script defer src="js/trafficLight.js" type="text/javascript"></script>
+    <script
+      defer
+      src="js/trafficLightManager.js"
+      type="text/javascript"
+    ></script>
+    <script defer src="js/trafficLightGroup.js" type="text/javascript"></script>
+    <script defer src="js/main.js" type="text/javascript"></script>
 
-        <!-- Include all stylesheets -->
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-        <div>
-            <svg class="canvas" width="100vw" height="100vh" viewBox="0 0 1440 1024">
-                <g class="road">
-                    <rect width="1440" height="1024" fill="#00C42B"/>
-                    <rect x="891" y="509" width="124" height="9" fill="white"/>
-                    <rect x="549" width="342" height="1024" fill="black"/>
-                    <rect x="1440" y="341" width="342" height="1440" transform="rotate(90 1440 341)" fill="black"/>
-                    <rect x="720" y="685" width="171" height="29" fill="white"/>
-                    <rect x="549" y="312" width="171" height="29" fill="white"/>
-                    <rect x="549" y="514" width="171" height="29" transform="rotate(90 549 514)" fill="white"/>
-                    <rect x="920" y="341" width="171" height="29" transform="rotate(90 920 341)" fill="white"/>
-                    <g id="traffic-stripes">
-                        <rect x="499" y="508" width="50" height="9" fill="white"/>
-                        <rect x="424" y="508" width="50" height="9" fill="white"/>
-                        <rect x="349" y="508" width="50" height="9" fill="white"/>
-                        <rect x="274" y="508" width="50" height="9" fill="white"/>
-                        <rect x="199" y="508" width="50" height="9" fill="white"/>
-                        <rect x="124" y="508" width="50" height="9" fill="white"/>
-                        <rect x="49" y="508" width="50" height="9" fill="white"/>
-                        <rect x="0" y="508" width="26" height="9" fill="white"/>
-                        <rect x="1416" y="508" width="24" height="9" fill="white"/>
-                        <rect x="1341" y="508" width="50" height="9" fill="white"/>
-                        <rect x="1266" y="508" width="50" height="9" fill="white"/>
-                        <rect x="1191" y="508" width="50" height="9" fill="white"/>
-                        <rect x="1116" y="508" width="50" height="9" fill="white"/>
-                        <rect x="1041" y="508" width="50" height="9" fill="white"/>
-                        <rect x="966" y="508" width="50" height="9" fill="white"/>
-                        <rect x="891" y="508" width="50" height="9" fill="white"/>
-                    </g>
-                    <rect x="724" y="685" width="50" height="9" transform="rotate(90 724 685)" fill="white"/>
-                    <rect x="724" y="910" width="50" height="9" transform="rotate(90 724 910)" fill="white"/>
-                    <rect x="724" y="985" width="50" height="9" transform="rotate(90 724 985)" fill="white"/>
-                    <rect x="724" y="760" width="50" height="9" transform="rotate(90 724 760)" fill="white"/>
-                    <rect x="724" y="835" width="50" height="9" transform="rotate(90 724 835)" fill="white"/>
-                    <rect x="724" y="-9" width="50" height="9" transform="rotate(90 724 -9)" fill="white"/>
-                    <rect x="724" y="216" width="50" height="9" transform="rotate(90 724 216)" fill="white"/>
-                    <rect x="724" y="291" width="50" height="9" transform="rotate(90 724 291)" fill="white"/>
-                    <rect x="724" y="66" width="50" height="9" transform="rotate(90 724 66)" fill="white"/>
-                    <rect x="724" y="141" width="50" height="9" transform="rotate(90 724 141)" fill="white"/>
-                </g>
-                
-                <g class="trafficlight" data-direction="north" id="1">
-                    <rect x="534" y="312" width="80" height="150" rx="18" transform="rotate(180 534 312)" fill="#727272"/>
-                    <circle cx="493.5" cy="195.5" r="17.5" transform="rotate(180 493.5 195.5)" fill="green" data-color="Green"/>
-                    <circle cx="493.5" cy="239.5" r="17.5" transform="rotate(180 493.5 239.5)" fill="orange" data-color="Orange"/>
-                    <circle cx="493.5" cy="283.5" r="17.5" transform="rotate(180 493.5 283.5)" fill="red" data-color="Red"/>
-                </g>
-                <g class="trafficlight" data-direction="east" id="2">
-                    <rect x="911" y="316" width="80" height="150" rx="18" transform="rotate(-90 911 316)" fill="#727272"/>
-                    <circle cx="1027.5" cy="275.5" r="17.5" transform="rotate(-90 1027.5 275.5)" fill="green" data-color="Green"/>
-                    <circle cx="983.5" cy="275.5" r="17.5" transform="rotate(-90 983.5 275.5)" fill="orange" data-color="Orange"/>
-                    <circle cx="939.5" cy="275.5" r="17.5" transform="rotate(-90 939.5 275.5)" fill="red" data-color="Red"/>
-                </g>
-                <g class="trafficlight" data-direction="south" id="3">
-                    <rect x="906" y="699" width="80" height="150" rx="18" fill="#727272"/>
-                    <circle cx="946.5" cy="815.5" r="17.5" fill="green" data-color="Green"/>
-                    <circle cx="946.5" cy="771.5" r="17.5" fill="orange" data-color="Orange"/>
-                    <circle cx="946.5" cy="727.5" r="17.5" fill="red" data-color="Red"/>
-                </g>
-                <g class="trafficlight" data-direction="west" id="4">
-                    <rect x="520" y="699" width="80" height="150" rx="18" transform="rotate(90 520 699)" fill="#727272"/>
-                    <circle cx="403.5" cy="739.5" r="17.5" transform="rotate(90 403.5 739.5)" fill="green" data-color="Green"/>
-                    <circle cx="447.5" cy="739.5" r="17.5" transform="rotate(90 447.5 739.5)" fill="orange" data-color="Orange"/>
-                    <circle cx="491.5" cy="739.5" r="17.5" transform="rotate(90 491.5 739.5)" fill="red" data-color="Red"/>
-                </g>
-            </svg>
-        </div>
-        <br>
-	<div class="button flex space-x-4 w-64">
-        <div onclick="Restart()" class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6 cursor-pointer">Restart</div>
-        <div onclick="Next()" class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6 cursor-pointer">Next</div>
-	</div>
-    </body>
+    <!-- Include all stylesheets -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div>
+      <svg class="canvas" width="100vw" height="100vh" viewBox="0 0 1440 1024">
+        <g class="road">
+          <rect width="1440" height="1024" fill="#00C42B" />
+          <rect x="891" y="509" width="124" height="9" fill="white" />
+          <rect x="549" width="342" height="1024" fill="black" />
+          <rect
+            x="1440"
+            y="341"
+            width="342"
+            height="1440"
+            transform="rotate(90 1440 341)"
+            fill="black"
+          />
+          <rect x="720" y="685" width="171" height="29" fill="white" />
+          <rect x="549" y="312" width="171" height="29" fill="white" />
+          <rect
+            x="549"
+            y="514"
+            width="171"
+            height="29"
+            transform="rotate(90 549 514)"
+            fill="white"
+          />
+          <rect
+            x="920"
+            y="341"
+            width="171"
+            height="29"
+            transform="rotate(90 920 341)"
+            fill="white"
+          />
+          <g id="traffic-stripes">
+            <rect x="499" y="508" width="50" height="9" fill="white" />
+            <rect x="424" y="508" width="50" height="9" fill="white" />
+            <rect x="349" y="508" width="50" height="9" fill="white" />
+            <rect x="274" y="508" width="50" height="9" fill="white" />
+            <rect x="199" y="508" width="50" height="9" fill="white" />
+            <rect x="124" y="508" width="50" height="9" fill="white" />
+            <rect x="49" y="508" width="50" height="9" fill="white" />
+            <rect x="0" y="508" width="26" height="9" fill="white" />
+            <rect x="1416" y="508" width="24" height="9" fill="white" />
+            <rect x="1341" y="508" width="50" height="9" fill="white" />
+            <rect x="1266" y="508" width="50" height="9" fill="white" />
+            <rect x="1191" y="508" width="50" height="9" fill="white" />
+            <rect x="1116" y="508" width="50" height="9" fill="white" />
+            <rect x="1041" y="508" width="50" height="9" fill="white" />
+            <rect x="966" y="508" width="50" height="9" fill="white" />
+            <rect x="891" y="508" width="50" height="9" fill="white" />
+          </g>
+          <rect
+            x="724"
+            y="685"
+            width="50"
+            height="9"
+            transform="rotate(90 724 685)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="910"
+            width="50"
+            height="9"
+            transform="rotate(90 724 910)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="985"
+            width="50"
+            height="9"
+            transform="rotate(90 724 985)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="760"
+            width="50"
+            height="9"
+            transform="rotate(90 724 760)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="835"
+            width="50"
+            height="9"
+            transform="rotate(90 724 835)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="-9"
+            width="50"
+            height="9"
+            transform="rotate(90 724 -9)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="216"
+            width="50"
+            height="9"
+            transform="rotate(90 724 216)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="291"
+            width="50"
+            height="9"
+            transform="rotate(90 724 291)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="66"
+            width="50"
+            height="9"
+            transform="rotate(90 724 66)"
+            fill="white"
+          />
+          <rect
+            x="724"
+            y="141"
+            width="50"
+            height="9"
+            transform="rotate(90 724 141)"
+            fill="white"
+          />
+        </g>
+
+        <g class="trafficlight" data-direction="north" id="1">
+          <rect
+            x="534"
+            y="312"
+            width="80"
+            height="150"
+            rx="18"
+            transform="rotate(180 534 312)"
+            fill="#727272"
+          />
+          <circle
+            cx="493.5"
+            cy="195.5"
+            r="17.5"
+            transform="rotate(180 493.5 195.5)"
+            fill="green"
+            data-color="Green"
+          />
+          <circle
+            cx="493.5"
+            cy="239.5"
+            r="17.5"
+            transform="rotate(180 493.5 239.5)"
+            fill="orange"
+            data-color="Orange"
+          />
+          <circle
+            cx="493.5"
+            cy="283.5"
+            r="17.5"
+            transform="rotate(180 493.5 283.5)"
+            fill="red"
+            data-color="Red"
+          />
+        </g>
+        <g class="trafficlight" data-direction="east" id="2">
+          <rect
+            x="911"
+            y="316"
+            width="80"
+            height="150"
+            rx="18"
+            transform="rotate(-90 911 316)"
+            fill="#727272"
+          />
+          <circle
+            cx="1027.5"
+            cy="275.5"
+            r="17.5"
+            transform="rotate(-90 1027.5 275.5)"
+            fill="green"
+            data-color="Green"
+          />
+          <circle
+            cx="983.5"
+            cy="275.5"
+            r="17.5"
+            transform="rotate(-90 983.5 275.5)"
+            fill="orange"
+            data-color="Orange"
+          />
+          <circle
+            cx="939.5"
+            cy="275.5"
+            r="17.5"
+            transform="rotate(-90 939.5 275.5)"
+            fill="red"
+            data-color="Red"
+          />
+        </g>
+        <g class="trafficlight" data-direction="south" id="3">
+          <rect
+            x="906"
+            y="699"
+            width="80"
+            height="150"
+            rx="18"
+            fill="#727272"
+          />
+          <circle
+            cx="946.5"
+            cy="815.5"
+            r="17.5"
+            fill="green"
+            data-color="Green"
+          />
+          <circle
+            cx="946.5"
+            cy="771.5"
+            r="17.5"
+            fill="orange"
+            data-color="Orange"
+          />
+          <circle cx="946.5" cy="727.5" r="17.5" fill="red" data-color="Red" />
+        </g>
+        <g class="trafficlight" data-direction="west" id="4">
+          <rect
+            x="520"
+            y="699"
+            width="80"
+            height="150"
+            rx="18"
+            transform="rotate(90 520 699)"
+            fill="#727272"
+          />
+          <circle
+            cx="403.5"
+            cy="739.5"
+            r="17.5"
+            transform="rotate(90 403.5 739.5)"
+            fill="green"
+            data-color="Green"
+          />
+          <circle
+            cx="447.5"
+            cy="739.5"
+            r="17.5"
+            transform="rotate(90 447.5 739.5)"
+            fill="orange"
+            data-color="Orange"
+          />
+          <circle
+            cx="491.5"
+            cy="739.5"
+            r="17.5"
+            transform="rotate(90 491.5 739.5)"
+            fill="red"
+            data-color="Red"
+          />
+        </g>
+      </svg>
+    </div>
+    <br />
+    <div class="button flex space-x-4 w-64">
+      <div
+        onclick="Restart()"
+        class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6 cursor-pointer"
+      >
+        Restart
+      </div>
+      <div
+        onclick="Next()"
+        class="flex-1 rounded-md bg-black text-white font-semibold flex items-center justify-center py-3 px-6 cursor-pointer"
+      >
+        Next
+      </div>
+    </div>
+  </body>
 </html>
