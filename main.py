@@ -7,7 +7,7 @@ import sys
 import random
 import string
 
-# Create Flask app and specify static url path and folder
+# Create Flask app and specify static file url path and folder name, to allow for easy loading of css and js files.
 app = Flask(__name__, static_url_path='', static_folder='static/')
 app.config['SECRET_KEY'] = urandom(24)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -15,23 +15,23 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # Inject Socket IO (our websocket handler) into the Flask app
 socketio = SocketIO(app)
 
-# Serve static index html file
+# Serve main html file
 @app.route('/')
 def serve_index():
     return app.send_static_file('index.html')
 
-# Handle next request from websocket, by creating an array of random directions and then emitting to client
+# Utilize websocket as they are high performance and emit directions to client
 @socketio.on('next')
 def handle_next():
     directions = ["North", "East", "South", "West"]
     emit("data", {"directions": random.sample(directions, len(directions))})
 
-# Print to console on client connect
+# Notify user client has connected
 @socketio.on('connect')
 def handle_connection():
     print('Client connected')
 
-# Print to console on client disconnect
+# Notify user client has disconnected
 @socketio.on('disconnect')
 def handle_disconnection():
     print('Client disconnected')
